@@ -3,7 +3,14 @@ import React, { useState, useEffect } from 'react';
 import AnimationButton from './AnimationButton';
 import AnimationPanel from './AnimationPanel';
 import { FACE_ANIMATIONS } from '@/lib/osc';
-import { Smile, Frown, Meh, Laugh, Angry } from 'lucide-react';
+import { 
+  User,
+  Eye, 
+  AlertCircle, 
+  Laugh, 
+  Frown, 
+  Angry
+} from 'lucide-react';
 import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
 
@@ -42,7 +49,7 @@ const FaceAnimations: React.FC = () => {
 
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
         <AnimationButton
-          icon={<Meh size={24} />}
+          icon={<User size={24} />}
           label="Default"
           address={FACE_ANIMATIONS.DEFAULT}
           isActive={activeAnimation === FACE_ANIMATIONS.DEFAULT}
@@ -51,7 +58,7 @@ const FaceAnimations: React.FC = () => {
         />
         
         <AnimationButton
-          icon={<Smile size={24} />}
+          icon={<Eye size={24} />}
           label="IDLE"
           address={FACE_ANIMATIONS.IDLE}
           isActive={activeAnimation === FACE_ANIMATIONS.IDLE}
@@ -60,7 +67,7 @@ const FaceAnimations: React.FC = () => {
         />
         
         <AnimationButton
-          icon={<Meh size={24} className="text-yellow-500" />}
+          icon={<AlertCircle size={24} className="text-yellow-500" />}
           label="Shocked"
           address={FACE_ANIMATIONS.SHOCKED}
           isActive={activeAnimation === FACE_ANIMATIONS.SHOCKED}
