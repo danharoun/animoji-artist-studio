@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import AnimationButton from './AnimationButton';
 import AnimationPanel from './AnimationPanel';
 import { BODY_ANIMATIONS } from '@/lib/osc';
-import { ChefHat, Utensils, Sandwich, Pizza, Soup, Cake, Cookie, EggFried } from 'lucide-react';
+import { ChefHat, Utensils, Smile, Frown, Meh, Angry, Laugh } from 'lucide-react';
 
 const BodyAnimations: React.FC = () => {
   const [activeAnimation, setActiveAnimation] = useState<string | null>(null);
@@ -48,7 +48,7 @@ const BodyAnimations: React.FC = () => {
         />
         
         <AnimationButton
-          icon={<Cake size={24} />}
+          icon={<Smile size={24} />}
           label="Speaking Sit"
           address={BODY_ANIMATIONS.SPEAKING_SIT}
           isActive={activeAnimation === BODY_ANIMATIONS.SPEAKING_SIT}
@@ -57,7 +57,7 @@ const BodyAnimations: React.FC = () => {
         />
         
         <AnimationButton
-          icon={<Soup size={24} />}
+          icon={<Meh size={24} className="text-yellow-500" />}
           label="Interrogative"
           address={BODY_ANIMATIONS.SPEAKING_INTERROGATIVE}
           isActive={activeAnimation === BODY_ANIMATIONS.SPEAKING_INTERROGATIVE}
@@ -66,7 +66,7 @@ const BodyAnimations: React.FC = () => {
         />
         
         <AnimationButton
-          icon={<Pizza size={24} />}
+          icon={<Laugh size={24} className="text-green-500" />}
           label="Exclamative"
           address={BODY_ANIMATIONS.SPEAKING_EXCLAMATIVE}
           isActive={activeAnimation === BODY_ANIMATIONS.SPEAKING_EXCLAMATIVE}
@@ -75,7 +75,7 @@ const BodyAnimations: React.FC = () => {
         />
         
         <AnimationButton
-          icon={<Sandwich size={24} />}
+          icon={<Frown size={24} className="text-blue-500" />}
           label="Sad"
           address={BODY_ANIMATIONS.SPEAKING_SAD}
           isActive={activeAnimation === BODY_ANIMATIONS.SPEAKING_SAD}
@@ -84,7 +84,7 @@ const BodyAnimations: React.FC = () => {
         />
         
         <AnimationButton
-          icon={<EggFried size={24} />}
+          icon={<Angry size={24} className="text-red-500" />}
           label="Angry"
           address={BODY_ANIMATIONS.SPEAKING_ANGRY}
           isActive={activeAnimation === BODY_ANIMATIONS.SPEAKING_ANGRY}
@@ -93,7 +93,7 @@ const BodyAnimations: React.FC = () => {
         />
         
         <AnimationButton
-          icon={<Sandwich size={24} />}
+          icon={<Meh size={24} className="text-purple-500" />}
           label="Fear"
           address={BODY_ANIMATIONS.SPEAKING_FEAR}
           isActive={activeAnimation === BODY_ANIMATIONS.SPEAKING_FEAR}
@@ -102,7 +102,7 @@ const BodyAnimations: React.FC = () => {
         />
         
         <AnimationButton
-          icon={<Cake size={24} />}
+          icon={<Smile size={24} className="text-green-500" />}
           label="Happy"
           address={BODY_ANIMATIONS.SPEAKING_HAPPY}
           isActive={activeAnimation === BODY_ANIMATIONS.SPEAKING_HAPPY}
@@ -111,7 +111,7 @@ const BodyAnimations: React.FC = () => {
         />
         
         <AnimationButton
-          icon={<Cookie size={24} />}
+          icon={<Meh size={24} />}
           label="Hesitation"
           address={BODY_ANIMATIONS.SPEAKING_HESITATION}
           isActive={activeAnimation === BODY_ANIMATIONS.SPEAKING_HESITATION}

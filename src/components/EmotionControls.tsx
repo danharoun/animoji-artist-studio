@@ -4,7 +4,7 @@ import AnimationPanel from './AnimationPanel';
 import EmotionSlider from './EmotionSlider';
 import { sendEmotions, EmotionValues } from '@/lib/osc';
 import { Button } from '@/components/ui/button';
-import { Smile } from 'lucide-react';
+import { Laugh, Angry, Smile, Frown, Meh } from 'lucide-react';
 import { useToast } from '@/components/ui/use-toast';
 
 const EmotionControls: React.FC = () => {
@@ -67,6 +67,7 @@ const EmotionControls: React.FC = () => {
       title="Emotion Controls" 
       gradientClass="panel-gradient-emotion"
       icon={<Smile size={18} className="text-pink-400" />}
+      description="Control the emotional intensity of AIMAN's facial expressions"
     >
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <EmotionSlider 

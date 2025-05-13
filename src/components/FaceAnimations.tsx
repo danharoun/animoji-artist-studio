@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import AnimationButton from './AnimationButton';
 import AnimationPanel from './AnimationPanel';
 import { FACE_ANIMATIONS } from '@/lib/osc';
-import { ChefHat, Utensils, Sandwich, Pizza, Soup, Cake, Cookie } from 'lucide-react';
+import { Smile, Frown, Meh, Laugh, Angry } from 'lucide-react';
 import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
 
@@ -42,7 +42,7 @@ const FaceAnimations: React.FC = () => {
 
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
         <AnimationButton
-          icon={<ChefHat size={24} />}
+          icon={<Meh size={24} />}
           label="Default"
           address={FACE_ANIMATIONS.DEFAULT}
           isActive={activeAnimation === FACE_ANIMATIONS.DEFAULT}
@@ -51,7 +51,7 @@ const FaceAnimations: React.FC = () => {
         />
         
         <AnimationButton
-          icon={<Utensils size={24} />}
+          icon={<Smile size={24} />}
           label="IDLE"
           address={FACE_ANIMATIONS.IDLE}
           isActive={activeAnimation === FACE_ANIMATIONS.IDLE}
@@ -60,7 +60,7 @@ const FaceAnimations: React.FC = () => {
         />
         
         <AnimationButton
-          icon={<Cookie size={24} />}
+          icon={<Meh size={24} className="text-yellow-500" />}
           label="Shocked"
           address={FACE_ANIMATIONS.SHOCKED}
           isActive={activeAnimation === FACE_ANIMATIONS.SHOCKED}
@@ -69,7 +69,7 @@ const FaceAnimations: React.FC = () => {
         />
         
         <AnimationButton
-          icon={<Cake size={24} />}
+          icon={<Laugh size={24} className="text-green-500" />}
           label="Happy"
           address={FACE_ANIMATIONS.HAPPY}
           isActive={activeAnimation === FACE_ANIMATIONS.HAPPY}
@@ -78,7 +78,7 @@ const FaceAnimations: React.FC = () => {
         />
         
         <AnimationButton
-          icon={<Soup size={24} />}
+          icon={<Frown size={24} className="text-blue-500" />}
           label="Concerned"
           address={FACE_ANIMATIONS.CONCERNED}
           isActive={activeAnimation === FACE_ANIMATIONS.CONCERNED}
@@ -87,7 +87,7 @@ const FaceAnimations: React.FC = () => {
         />
         
         <AnimationButton
-          icon={<Pizza size={24} />}
+          icon={<Angry size={24} className="text-red-500" />}
           label="Angry"
           address={FACE_ANIMATIONS.ANGRY}
           isActive={activeAnimation === FACE_ANIMATIONS.ANGRY}
