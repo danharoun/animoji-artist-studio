@@ -11,8 +11,8 @@ const Index: React.FC = () => {
 
   React.useEffect(() => {
     toast({
-      title: "Animoji Artist Studio",
-      description: "Digital human animation controller ready",
+      title: "AIMAN Chef Animation Studio",
+      description: "AI Chef animation controller ready",
       duration: 3000,
     });
   }, [toast]);
@@ -25,7 +25,7 @@ const Index: React.FC = () => {
         <div className="flex items-center justify-between">
           <h2 className="text-2xl font-bold">Animation Controller</h2>
           <div className="text-xs text-muted-foreground">
-            Ready to animate
+            Ready to animate AIMAN
           </div>
         </div>
         
@@ -38,7 +38,7 @@ const Index: React.FC = () => {
         
         {/* Footer */}
         <footer className="py-4 text-center text-xs text-muted-foreground mt-auto">
-          <p>Animoji Artist Studio | Digital Human Animation Controller</p>
+          <p>AIMAN Chef Animation Studio | AI Chef Animation Controller</p>
         </footer>
       </div>
     </div>

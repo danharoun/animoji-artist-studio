@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { cn } from '@/lib/utils';
+import { ChefHat } from 'lucide-react';
 
 interface HeaderProps {
   className?: string;
@@ -13,14 +14,14 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
         <div className="relative w-10 h-10">
           <div className="absolute inset-0 rounded-full bg-gradient-to-r from-blue-600 to-purple-600 animate-pulse-glow"></div>
           <div className="absolute inset-0.5 rounded-full bg-card flex items-center justify-center">
-            <span className="text-xl font-bold bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">A</span>
+            <ChefHat className="h-6 w-6 text-gradient-to-r from-blue-500 to-purple-500" />
           </div>
         </div>
         <div>
           <h1 className="text-lg font-bold bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">
-            Animoji Artist Studio
+            AIMAN Chef Animation Studio
           </h1>
-          <p className="text-xs text-muted-foreground">Digital Human Animation Controller</p>
+          <p className="text-xs text-muted-foreground">AI Chef Animation Controller</p>
         </div>
       </div>
       <div className="hidden md:flex items-center space-x-4">

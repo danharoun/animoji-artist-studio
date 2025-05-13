@@ -1,90 +1,98 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import AnimationButton from './AnimationButton';
 import AnimationPanel from './AnimationPanel';
 import { FACE_ANIMATIONS } from '@/lib/osc';
-import { Smile, Frown, Zap, ArrowDown, SparkleIcon } from 'lucide-react';
+import { ChefHat, CupSoda, Plate, IceCreamBowl, Candy } from 'lucide-react';
 import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
 
 const FaceAnimations: React.FC = () => {
   const [activeAnimation, setActiveAnimation] = useState<string | null>(null);
-  const [focusedLook, setFocusedLook] = useState(true);
+  const [autoReset, setAutoReset] = useState(true);
 
-  const handleAnimationClick = (animationAddress: string) => {
-    setActiveAnimation(animationAddress);
+  const handleAnimationChange = (address: string) => {
+    setActiveAnimation(address);
   };
 
+  // Reset active animation after 2 seconds if autoReset is enabled
+  useEffect(() => {
+    if (activeAnimation && autoReset) {
+      const timer = setTimeout(() => {
+        setActiveAnimation(null);
+      }, 2000);
+      return () => clearTimeout(timer);
+    }
+  }, [activeAnimation, autoReset]);
+
   return (
-    <AnimationPanel 
-      title="Face Animations" 
-      gradientClass="panel-gradient-face"
-      icon={<ArrowDown size={18} className="text-purple-400" />}
+    <AnimationPanel
+      title="Face Animations"
+      description="Control facial expressions and emotions of AIMAN, our AI Chef"
+      className="panel-gradient-face"
     >
-      <div className="flex items-center space-x-2 mb-4">
-        <Switch 
-          id="focused-look" 
-          checked={focusedLook} 
-          onCheckedChange={setFocusedLook} 
+      <div className="flex items-center mb-4 space-x-2">
+        <Switch
+          id="auto-reset"
+          checked={autoReset}
+          onCheckedChange={setAutoReset}
         />
-        <Label htmlFor="focused-look" className="text-xs">
-          {focusedLook ? 'Focused Look' : 'Unfocused Look'}
-        </Label>
+        <Label htmlFor="auto-reset">Auto-reset animations</Label>
       </div>
-      
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2">
+
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
         <AnimationButton
-          icon={<ArrowDown size={24} />}
+          icon={<ChefHat size={24} />}
           label="Default"
           address={FACE_ANIMATIONS.DEFAULT}
           isActive={activeAnimation === FACE_ANIMATIONS.DEFAULT}
-          onClick={() => handleAnimationClick(FACE_ANIMATIONS.DEFAULT)}
-          activeColor="bg-purple-500/20 text-purple-500 border-purple-500/50"
+          onChange={handleAnimationChange}
+          className="bg-purple-800/20 hover:bg-purple-700/30"
         />
         
         <AnimationButton
-          icon={<SparkleIcon size={24} />}
+          icon={<Plate size={24} />}
           label="IDLE"
           address={FACE_ANIMATIONS.IDLE}
           isActive={activeAnimation === FACE_ANIMATIONS.IDLE}
-          onClick={() => handleAnimationClick(FACE_ANIMATIONS.IDLE)}
-          activeColor="bg-purple-500/20 text-purple-500 border-purple-500/50"
+          onChange={handleAnimationChange}
+          className="bg-purple-800/20 hover:bg-purple-700/30"
         />
         
         <AnimationButton
-          icon={<Zap size={24} />}
+          icon={<Candy size={24} />}
           label="Shocked"
           address={FACE_ANIMATIONS.SHOCKED}
           isActive={activeAnimation === FACE_ANIMATIONS.SHOCKED}
-          onClick={() => handleAnimationClick(FACE_ANIMATIONS.SHOCKED)}
-          activeColor="bg-purple-500/20 text-purple-500 border-purple-500/50"
+          onChange={handleAnimationChange}
+          className="bg-purple-800/20 hover:bg-purple-700/30"
         />
         
         <AnimationButton
-          icon={<Smile size={24} />}
+          icon={<IceCreamBowl size={24} />}
           label="Happy"
           address={FACE_ANIMATIONS.HAPPY}
           isActive={activeAnimation === FACE_ANIMATIONS.HAPPY}
-          onClick={() => handleAnimationClick(FACE_ANIMATIONS.HAPPY)}
-          activeColor="bg-purple-500/20 text-purple-500 border-purple-500/50"
+          onChange={handleAnimationChange}
+          className="bg-purple-800/20 hover:bg-purple-700/30"
         />
         
         <AnimationButton
-          icon={<Frown size={24} />}
+          icon={<CupSoda size={24} />}
           label="Concerned"
           address={FACE_ANIMATIONS.CONCERNED}
           isActive={activeAnimation === FACE_ANIMATIONS.CONCERNED}
-          onClick={() => handleAnimationClick(FACE_ANIMATIONS.CONCERNED)}
-          activeColor="bg-purple-500/20 text-purple-500 border-purple-500/50"
+          onChange={handleAnimationChange}
+          className="bg-purple-800/20 hover:bg-purple-700/30"
         />
         
         <AnimationButton
-          icon={<Zap size={24} />}
+          icon={<Plate size={24} />}
           label="Angry"
           address={FACE_ANIMATIONS.ANGRY}
           isActive={activeAnimation === FACE_ANIMATIONS.ANGRY}
-          onClick={() => handleAnimationClick(FACE_ANIMATIONS.ANGRY)}
-          activeColor="bg-purple-500/20 text-purple-500 border-purple-500/50"
+          onChange={handleAnimationChange}
+          className="bg-purple-800/20 hover:bg-purple-700/30"
         />
       </div>
     </AnimationPanel>

@@ -1,112 +1,122 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import AnimationButton from './AnimationButton';
 import AnimationPanel from './AnimationPanel';
 import { BODY_ANIMATIONS } from '@/lib/osc';
-import { Smile, Frown, Zap, SparkleIcon, ArrowRight } from 'lucide-react';
+import { ChefHat, Utensils, Sandwich, Pizza, Soup, Cake, Cookie, Fork, Spoon, EggFried } from 'lucide-react';
 
 const BodyAnimations: React.FC = () => {
   const [activeAnimation, setActiveAnimation] = useState<string | null>(null);
 
-  const handleAnimationClick = (animationAddress: string) => {
-    setActiveAnimation(animationAddress);
+  const handleAnimationChange = (address: string) => {
+    setActiveAnimation(address);
   };
+
+  // Reset active animation after 2 seconds
+  useEffect(() => {
+    if (activeAnimation) {
+      const timer = setTimeout(() => {
+        setActiveAnimation(null);
+      }, 2000);
+      return () => clearTimeout(timer);
+    }
+  }, [activeAnimation]);
 
   return (
     <AnimationPanel 
       title="Body Animations" 
-      gradientClass="panel-gradient-body"
-      icon={<ArrowRight size={18} className="text-blue-400" />}
+      description="Control the body movements and postures of AIMAN, our AI Chef"
+      className="panel-gradient-body"
     >
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2">
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
         <AnimationButton
-          icon={<ArrowRight size={24} />}
-          label="Body Sit"
+          icon={<ChefHat size={24} />}
+          label="Sit"
           address={BODY_ANIMATIONS.SIT}
           isActive={activeAnimation === BODY_ANIMATIONS.SIT}
-          onClick={() => handleAnimationClick(BODY_ANIMATIONS.SIT)}
-          activeColor="bg-blue-500/20 text-blue-500 border-blue-500/50"
+          onChange={handleAnimationChange}
+          className="bg-blue-800/20 hover:bg-blue-700/30"
         />
         
         <AnimationButton
-          icon={<SparkleIcon size={24} />}
+          icon={<Utensils size={24} />}
           label="IDLE"
           address={BODY_ANIMATIONS.IDLE}
           isActive={activeAnimation === BODY_ANIMATIONS.IDLE}
-          onClick={() => handleAnimationClick(BODY_ANIMATIONS.IDLE)}
-          activeColor="bg-blue-500/20 text-blue-500 border-blue-500/50"
+          onChange={handleAnimationChange}
+          className="bg-blue-800/20 hover:bg-blue-700/30"
         />
         
         <AnimationButton
-          icon={<ArrowRight size={24} />}
+          icon={<Fork size={24} />}
           label="Speaking Sit"
           address={BODY_ANIMATIONS.SPEAKING_SIT}
           isActive={activeAnimation === BODY_ANIMATIONS.SPEAKING_SIT}
-          onClick={() => handleAnimationClick(BODY_ANIMATIONS.SPEAKING_SIT)}
-          activeColor="bg-blue-500/20 text-blue-500 border-blue-500/50"
+          onChange={handleAnimationChange}
+          className="bg-blue-800/20 hover:bg-blue-700/30"
         />
         
         <AnimationButton
-          icon={<Zap size={24} />}
+          icon={<Soup size={24} />}
           label="Interrogative"
           address={BODY_ANIMATIONS.SPEAKING_INTERROGATIVE}
           isActive={activeAnimation === BODY_ANIMATIONS.SPEAKING_INTERROGATIVE}
-          onClick={() => handleAnimationClick(BODY_ANIMATIONS.SPEAKING_INTERROGATIVE)}
-          activeColor="bg-blue-500/20 text-blue-500 border-blue-500/50"
+          onChange={handleAnimationChange}
+          className="bg-blue-800/20 hover:bg-blue-700/30"
         />
         
         <AnimationButton
-          icon={<Zap size={24} />}
+          icon={<Pizza size={24} />}
           label="Exclamative"
           address={BODY_ANIMATIONS.SPEAKING_EXCLAMATIVE}
           isActive={activeAnimation === BODY_ANIMATIONS.SPEAKING_EXCLAMATIVE}
-          onClick={() => handleAnimationClick(BODY_ANIMATIONS.SPEAKING_EXCLAMATIVE)}
-          activeColor="bg-blue-500/20 text-blue-500 border-blue-500/50"
+          onChange={handleAnimationChange}
+          className="bg-blue-800/20 hover:bg-blue-700/30"
         />
         
         <AnimationButton
-          icon={<Frown size={24} />}
+          icon={<Spoon size={24} />}
           label="Sad"
           address={BODY_ANIMATIONS.SPEAKING_SAD}
           isActive={activeAnimation === BODY_ANIMATIONS.SPEAKING_SAD}
-          onClick={() => handleAnimationClick(BODY_ANIMATIONS.SPEAKING_SAD)}
-          activeColor="bg-blue-500/20 text-blue-500 border-blue-500/50"
+          onChange={handleAnimationChange}
+          className="bg-blue-800/20 hover:bg-blue-700/30"
         />
         
         <AnimationButton
-          icon={<Zap size={24} />}
+          icon={<EggFried size={24} />}
           label="Angry"
           address={BODY_ANIMATIONS.SPEAKING_ANGRY}
           isActive={activeAnimation === BODY_ANIMATIONS.SPEAKING_ANGRY}
-          onClick={() => handleAnimationClick(BODY_ANIMATIONS.SPEAKING_ANGRY)}
-          activeColor="bg-blue-500/20 text-blue-500 border-blue-500/50"
+          onChange={handleAnimationChange}
+          className="bg-blue-800/20 hover:bg-blue-700/30"
         />
         
         <AnimationButton
-          icon={<Frown size={24} />}
+          icon={<Sandwich size={24} />}
           label="Fear"
           address={BODY_ANIMATIONS.SPEAKING_FEAR}
           isActive={activeAnimation === BODY_ANIMATIONS.SPEAKING_FEAR}
-          onClick={() => handleAnimationClick(BODY_ANIMATIONS.SPEAKING_FEAR)}
-          activeColor="bg-blue-500/20 text-blue-500 border-blue-500/50"
+          onChange={handleAnimationChange}
+          className="bg-blue-800/20 hover:bg-blue-700/30"
         />
         
         <AnimationButton
-          icon={<Smile size={24} />}
+          icon={<Cake size={24} />}
           label="Happy"
           address={BODY_ANIMATIONS.SPEAKING_HAPPY}
           isActive={activeAnimation === BODY_ANIMATIONS.SPEAKING_HAPPY}
-          onClick={() => handleAnimationClick(BODY_ANIMATIONS.SPEAKING_HAPPY)}
-          activeColor="bg-blue-500/20 text-blue-500 border-blue-500/50"
+          onChange={handleAnimationChange}
+          className="bg-blue-800/20 hover:bg-blue-700/30"
         />
         
         <AnimationButton
-          icon={<SparkleIcon size={24} />}
+          icon={<Cookie size={24} />}
           label="Hesitation"
           address={BODY_ANIMATIONS.SPEAKING_HESITATION}
           isActive={activeAnimation === BODY_ANIMATIONS.SPEAKING_HESITATION}
-          onClick={() => handleAnimationClick(BODY_ANIMATIONS.SPEAKING_HESITATION)}
-          activeColor="bg-blue-500/20 text-blue-500 border-blue-500/50"
+          onChange={handleAnimationChange}
+          className="bg-blue-800/20 hover:bg-blue-700/30"
         />
       </div>
     </AnimationPanel>
