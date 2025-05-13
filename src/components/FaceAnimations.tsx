@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import AnimationButton from './AnimationButton';
 import AnimationPanel from './AnimationPanel';
 import { FACE_ANIMATIONS } from '@/lib/osc';
-import { Smile, Angry, Frown, Happy, Surprise, ArrowDown } from 'lucide-react';
+import { Smile, Frown, Zap, ArrowDown, SparkleIcon } from 'lucide-react';
 import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
 
@@ -43,7 +43,7 @@ const FaceAnimations: React.FC = () => {
         />
         
         <AnimationButton
-          icon={<Surprise size={24} />}
+          icon={<SparkleIcon size={24} />}
           label="IDLE"
           address={FACE_ANIMATIONS.IDLE}
           isActive={activeAnimation === FACE_ANIMATIONS.IDLE}
@@ -52,7 +52,7 @@ const FaceAnimations: React.FC = () => {
         />
         
         <AnimationButton
-          icon={<Surprise size={24} />}
+          icon={<Zap size={24} />}
           label="Shocked"
           address={FACE_ANIMATIONS.SHOCKED}
           isActive={activeAnimation === FACE_ANIMATIONS.SHOCKED}
@@ -61,7 +61,7 @@ const FaceAnimations: React.FC = () => {
         />
         
         <AnimationButton
-          icon={<Happy size={24} />}
+          icon={<Smile size={24} />}
           label="Happy"
           address={FACE_ANIMATIONS.HAPPY}
           isActive={activeAnimation === FACE_ANIMATIONS.HAPPY}
@@ -79,7 +79,7 @@ const FaceAnimations: React.FC = () => {
         />
         
         <AnimationButton
-          icon={<Angry size={24} />}
+          icon={<Zap size={24} />}
           label="Angry"
           address={FACE_ANIMATIONS.ANGRY}
           isActive={activeAnimation === FACE_ANIMATIONS.ANGRY}

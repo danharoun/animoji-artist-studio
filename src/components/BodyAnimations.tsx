@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import AnimationButton from './AnimationButton';
 import AnimationPanel from './AnimationPanel';
 import { BODY_ANIMATIONS } from '@/lib/osc';
-import { Happy, Angry, Frown, Smile, Surprise, ArrowRight } from 'lucide-react';
+import { Smile, Frown, Zap, SparkleIcon, ArrowRight } from 'lucide-react';
 
 const BodyAnimations: React.FC = () => {
   const [activeAnimation, setActiveAnimation] = useState<string | null>(null);
@@ -29,7 +29,7 @@ const BodyAnimations: React.FC = () => {
         />
         
         <AnimationButton
-          icon={<Surprise size={24} />}
+          icon={<SparkleIcon size={24} />}
           label="IDLE"
           address={BODY_ANIMATIONS.IDLE}
           isActive={activeAnimation === BODY_ANIMATIONS.IDLE}
@@ -47,7 +47,7 @@ const BodyAnimations: React.FC = () => {
         />
         
         <AnimationButton
-          icon={<Surprise size={24} />}
+          icon={<Zap size={24} />}
           label="Interrogative"
           address={BODY_ANIMATIONS.SPEAKING_INTERROGATIVE}
           isActive={activeAnimation === BODY_ANIMATIONS.SPEAKING_INTERROGATIVE}
@@ -56,7 +56,7 @@ const BodyAnimations: React.FC = () => {
         />
         
         <AnimationButton
-          icon={<Surprise size={24} />}
+          icon={<Zap size={24} />}
           label="Exclamative"
           address={BODY_ANIMATIONS.SPEAKING_EXCLAMATIVE}
           isActive={activeAnimation === BODY_ANIMATIONS.SPEAKING_EXCLAMATIVE}
@@ -74,7 +74,7 @@ const BodyAnimations: React.FC = () => {
         />
         
         <AnimationButton
-          icon={<Angry size={24} />}
+          icon={<Zap size={24} />}
           label="Angry"
           address={BODY_ANIMATIONS.SPEAKING_ANGRY}
           isActive={activeAnimation === BODY_ANIMATIONS.SPEAKING_ANGRY}
@@ -83,7 +83,7 @@ const BodyAnimations: React.FC = () => {
         />
         
         <AnimationButton
-          icon={<Surprise size={24} />}
+          icon={<Frown size={24} />}
           label="Fear"
           address={BODY_ANIMATIONS.SPEAKING_FEAR}
           isActive={activeAnimation === BODY_ANIMATIONS.SPEAKING_FEAR}
@@ -92,7 +92,7 @@ const BodyAnimations: React.FC = () => {
         />
         
         <AnimationButton
-          icon={<Happy size={24} />}
+          icon={<Smile size={24} />}
           label="Happy"
           address={BODY_ANIMATIONS.SPEAKING_HAPPY}
           isActive={activeAnimation === BODY_ANIMATIONS.SPEAKING_HAPPY}
@@ -101,7 +101,7 @@ const BodyAnimations: React.FC = () => {
         />
         
         <AnimationButton
-          icon={<Surprise size={24} />}
+          icon={<SparkleIcon size={24} />}
           label="Hesitation"
           address={BODY_ANIMATIONS.SPEAKING_HESITATION}
           isActive={activeAnimation === BODY_ANIMATIONS.SPEAKING_HESITATION}
