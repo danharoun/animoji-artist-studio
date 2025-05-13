@@ -13,6 +13,7 @@ interface AnimationButtonProps {
   activeColor?: string;
   isActive?: boolean;
   onClick?: () => void;
+  onChange?: (address: string) => void;
 }
 
 const AnimationButton: React.FC<AnimationButtonProps> = ({
@@ -22,7 +23,8 @@ const AnimationButton: React.FC<AnimationButtonProps> = ({
   className,
   activeColor = 'bg-primary/20 text-primary border-primary/50',
   isActive = false,
-  onClick
+  onClick,
+  onChange
 }) => {
   const { toast } = useToast();
 
@@ -35,6 +37,7 @@ const AnimationButton: React.FC<AnimationButtonProps> = ({
         duration: 2000,
       });
       if (onClick) onClick();
+      if (onChange) onChange(address);
     } catch (error) {
       toast({
         title: "Failed to send command",

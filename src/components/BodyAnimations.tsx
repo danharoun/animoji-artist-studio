@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import AnimationButton from './AnimationButton';
 import AnimationPanel from './AnimationPanel';
 import { BODY_ANIMATIONS } from '@/lib/osc';
-import { ChefHat, Utensils, Sandwich, Pizza, Soup, Cake, Cookie, Fork, Spoon, EggFried } from 'lucide-react';
+import { ChefHat, Utensils, Sandwich, Pizza, Soup, Cake, Cookie, EggFried } from 'lucide-react';
 
 const BodyAnimations: React.FC = () => {
   const [activeAnimation, setActiveAnimation] = useState<string | null>(null);
@@ -48,7 +48,7 @@ const BodyAnimations: React.FC = () => {
         />
         
         <AnimationButton
-          icon={<Fork size={24} />}
+          icon={<Cake size={24} />}
           label="Speaking Sit"
           address={BODY_ANIMATIONS.SPEAKING_SIT}
           isActive={activeAnimation === BODY_ANIMATIONS.SPEAKING_SIT}
@@ -75,7 +75,7 @@ const BodyAnimations: React.FC = () => {
         />
         
         <AnimationButton
-          icon={<Spoon size={24} />}
+          icon={<Sandwich size={24} />}
           label="Sad"
           address={BODY_ANIMATIONS.SPEAKING_SAD}
           isActive={activeAnimation === BODY_ANIMATIONS.SPEAKING_SAD}

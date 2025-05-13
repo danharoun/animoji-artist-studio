@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import AnimationButton from './AnimationButton';
 import AnimationPanel from './AnimationPanel';
 import { FACE_ANIMATIONS } from '@/lib/osc';
-import { ChefHat, CupSoda, Plate, IceCreamBowl, Candy } from 'lucide-react';
+import { ChefHat, Utensils, Sandwich, Pizza, Soup, Cake, Cookie } from 'lucide-react';
 import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
 
@@ -51,7 +51,7 @@ const FaceAnimations: React.FC = () => {
         />
         
         <AnimationButton
-          icon={<Plate size={24} />}
+          icon={<Utensils size={24} />}
           label="IDLE"
           address={FACE_ANIMATIONS.IDLE}
           isActive={activeAnimation === FACE_ANIMATIONS.IDLE}
@@ -60,7 +60,7 @@ const FaceAnimations: React.FC = () => {
         />
         
         <AnimationButton
-          icon={<Candy size={24} />}
+          icon={<Cookie size={24} />}
           label="Shocked"
           address={FACE_ANIMATIONS.SHOCKED}
           isActive={activeAnimation === FACE_ANIMATIONS.SHOCKED}
@@ -69,7 +69,7 @@ const FaceAnimations: React.FC = () => {
         />
         
         <AnimationButton
-          icon={<IceCreamBowl size={24} />}
+          icon={<Cake size={24} />}
           label="Happy"
           address={FACE_ANIMATIONS.HAPPY}
           isActive={activeAnimation === FACE_ANIMATIONS.HAPPY}
@@ -78,7 +78,7 @@ const FaceAnimations: React.FC = () => {
         />
         
         <AnimationButton
-          icon={<CupSoda size={24} />}
+          icon={<Soup size={24} />}
           label="Concerned"
           address={FACE_ANIMATIONS.CONCERNED}
           isActive={activeAnimation === FACE_ANIMATIONS.CONCERNED}
@@ -87,7 +87,7 @@ const FaceAnimations: React.FC = () => {
         />
         
         <AnimationButton
-          icon={<Plate size={24} />}
+          icon={<Pizza size={24} />}
           label="Angry"
           address={FACE_ANIMATIONS.ANGRY}
           isActive={activeAnimation === FACE_ANIMATIONS.ANGRY}
