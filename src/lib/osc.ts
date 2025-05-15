@@ -2,6 +2,7 @@
 /**
  * OSC Messaging Utility for Digital Human Animation
  */
+import { UDPPort } from 'osc';
 
 // Default OSC connection settings
 const DEFAULT_OSC_SETTINGS = {
@@ -12,29 +13,100 @@ const DEFAULT_OSC_SETTINGS = {
 // Store the current OSC settings
 let oscSettings = { ...DEFAULT_OSC_SETTINGS };
 
+// OSC port instance
+let oscPort: any = null;
+
+// Initialize OSC port
+const initializeOSC = () => {
+  try {
+    if (oscPort) {
+      // Close existing connection if it exists
+      try {
+        oscPort.close();
+      } catch (e) {
+        console.log('Error closing existing OSC port:', e);
+      }
+    }
+
+    // Create a new OSC UDP Port
+    oscPort = new UDPPort({
+      localAddress: "0.0.0.0",
+      localPort: 0, // Use any available port for sending
+      remoteAddress: oscSettings.ip,
+      remotePort: oscSettings.port,
+      metadata: true
+    });
+
+    // Open the port
+    oscPort.open();
+    
+    // Log when port is ready
+    oscPort.on("ready", () => {
+      console.log(`OSC Port ready - sending to ${oscSettings.ip}:${oscSettings.port}`);
+    });
+
+    // Log any OSC errors
+    oscPort.on("error", (error: any) => {
+      console.error("OSC Port error:", error);
+    });
+
+    return true;
+  } catch (error) {
+    console.error("Failed to initialize OSC:", error);
+    return false;
+  }
+};
+
 // Allow updating the OSC connection settings
 export const updateOSCSettings = (newSettings: Partial<typeof DEFAULT_OSC_SETTINGS>) => {
   oscSettings = { ...oscSettings, ...newSettings };
   console.log('OSC settings updated:', oscSettings);
-  return oscSettings;
+  
+  // Re-initialize the OSC connection with new settings
+  const success = initializeOSC();
+  return { ...oscSettings, connected: success };
 };
 
 // Get current OSC settings
 export const getOSCSettings = () => {
-  return { ...oscSettings };
+  return { 
+    ...oscSettings, 
+    connected: oscPort?.options?.socket?.readable || false 
+  };
 };
 
-// In a real application, this would connect to an OSC server
+// Send actual OSC messages
 export const sendOSCMessage = (address: string, ...args: any[]) => {
   const { ip, port } = oscSettings;
   console.log(`Sending OSC message to ${ip}:${port} - ${address}:`, args);
-  // Here you would implement the actual OSC sending logic
-  // using a library like osc.js or a backend API
-  // Example: oscClient.send({ address, args, host: ip, port });
   
-  // For now, we'll just simulate success
-  return new Promise<boolean>((resolve) => {
-    setTimeout(() => resolve(true), 100);
+  // Initialize OSC connection if not already done
+  if (!oscPort) {
+    initializeOSC();
+  }
+  
+  return new Promise<boolean>((resolve, reject) => {
+    try {
+      if (!oscPort || !oscPort.options.socket) {
+        console.error("No OSC connection available");
+        resolve(false);
+        return;
+      }
+      
+      // Send the OSC message
+      oscPort.send({
+        address: address,
+        args: args.map(arg => ({
+          type: typeof arg === 'number' ? 'f' : 's',
+          value: arg
+        }))
+      });
+      
+      resolve(true);
+    } catch (error) {
+      console.error("Error sending OSC message:", error);
+      reject(error);
+    }
   });
 };
 
@@ -93,3 +165,6 @@ export const sendEmotions = (emotions: EmotionValues) => {
   
   return sendOSCMessage("/Animation/Face", ...values);
 };
+
+// Initialize OSC connection on module load
+initializeOSC();
