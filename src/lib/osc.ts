@@ -3,11 +3,34 @@
  * OSC Messaging Utility for Digital Human Animation
  */
 
+// Default OSC connection settings
+const DEFAULT_OSC_SETTINGS = {
+  ip: '127.0.0.1',
+  port: 8000
+};
+
+// Store the current OSC settings
+let oscSettings = { ...DEFAULT_OSC_SETTINGS };
+
+// Allow updating the OSC connection settings
+export const updateOSCSettings = (newSettings: Partial<typeof DEFAULT_OSC_SETTINGS>) => {
+  oscSettings = { ...oscSettings, ...newSettings };
+  console.log('OSC settings updated:', oscSettings);
+  return oscSettings;
+};
+
+// Get current OSC settings
+export const getOSCSettings = () => {
+  return { ...oscSettings };
+};
+
 // In a real application, this would connect to an OSC server
 export const sendOSCMessage = (address: string, ...args: any[]) => {
-  console.log(`Sending OSC message to ${address}:`, args);
+  const { ip, port } = oscSettings;
+  console.log(`Sending OSC message to ${ip}:${port} - ${address}:`, args);
   // Here you would implement the actual OSC sending logic
   // using a library like osc.js or a backend API
+  // Example: oscClient.send({ address, args, host: ip, port });
   
   // For now, we'll just simulate success
   return new Promise<boolean>((resolve) => {

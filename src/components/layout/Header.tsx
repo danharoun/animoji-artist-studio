@@ -2,6 +2,7 @@
 import React from 'react';
 import { cn } from '@/lib/utils';
 import { ChefHat } from 'lucide-react';
+import OSCSettings from '@/components/OSCSettings';
 
 interface HeaderProps {
   className?: string;
@@ -24,13 +25,16 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
           <p className="text-xs text-muted-foreground">AI Chef Animation Controller</p>
         </div>
       </div>
-      <div className="hidden md:flex items-center space-x-4">
-        <div className="text-xs text-muted-foreground">
-          <span className="inline-block w-2 h-2 rounded-full bg-green-500 mr-1"></span>
-          Connected to OSC
+      <div className="flex items-center space-x-4">
+        <OSCSettings />
+        <div className="hidden md:flex items-center space-x-4">
+          <div className="text-xs text-muted-foreground">
+            <span className="inline-block w-2 h-2 rounded-full bg-green-500 mr-1"></span>
+            Connected to OSC
+          </div>
+          <div className="h-4 w-px bg-border"></div>
+          <div className="text-xs text-muted-foreground">v1.0.0</div>
         </div>
-        <div className="h-4 w-px bg-border"></div>
-        <div className="text-xs text-muted-foreground">v1.0.0</div>
       </div>
     </header>
   );
