@@ -4,42 +4,95 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/components/ui/use-toast';
-import { getOSCSettings, updateOSCSettings } from '@/lib/osc';
-import { Settings, CheckCircle, XCircle } from 'lucide-react';
+import { getOSCSettings, updateOSCSettings, useOSCStatus } from '@/lib/api';
+import { Settings, CheckCircle, XCircle, AlertCircle } from 'lucide-react';
 
 const OSCSettings: React.FC = () => {
   const { toast } = useToast();
   const [isOpen, setIsOpen] = useState(false);
-  const [settings, setSettings] = useState(getOSCSettings());
+  const [settings, setSettings] = useState({ ip: '127.0.0.1', port: 8000, connected: false });
   const [connectionStatus, setConnectionStatus] = useState({ connected: false, lastChecked: Date.now() });
-
-  // Update connection status periodically
+  const [isBackendAvailable, setIsBackendAvailable] = useState<boolean | null>(null);
+  
+  // Check if backend is available
   useEffect(() => {
     if (isOpen) {
-      const interval = setInterval(() => {
-        const current = getOSCSettings();
-        setConnectionStatus({ 
-          connected: current.connected || false, 
-          lastChecked: Date.now() 
+      fetch(`${import.meta.env.DEV ? 'http://localhost:3000' : ''}/api/osc/settings`)
+        .then(response => {
+          setIsBackendAvailable(response.ok);
+          return response.json();
+        })
+        .then(data => {
+          setSettings(data);
+          setConnectionStatus({
+            connected: data.connected,
+            lastChecked: Date.now()
+          });
+        })
+        .catch(error => {
+          console.error('Backend connection error:', error);
+          setIsBackendAvailable(false);
         });
-      }, 2000);
-      
-      return () => clearInterval(interval);
     }
   }, [isOpen]);
 
-  const handleSaveSettings = () => {
-    const result = updateOSCSettings(settings);
-    setConnectionStatus({ 
-      connected: result.connected || false,
-      lastChecked: Date.now() 
-    });
-    
-    toast({
-      title: 'OSC Settings Updated',
-      description: `Connection ${result.connected ? 'established' : 'attempted'} to ${settings.ip}:${settings.port}`,
-      duration: 2000,
-    });
+  // Periodically refresh status when dialog is open
+  useEffect(() => {
+    if (isOpen && isBackendAvailable) {
+      const interval = setInterval(() => {
+        getOSCSettings()
+          .then(data => {
+            setSettings(data);
+            setConnectionStatus({
+              connected: data.connected,
+              lastChecked: Date.now()
+            });
+          })
+          .catch(() => {
+            setConnectionStatus(prev => ({
+              ...prev,
+              connected: false,
+              lastChecked: Date.now()
+            }));
+          });
+      }, 3000);
+      
+      return () => clearInterval(interval);
+    }
+  }, [isOpen, isBackendAvailable]);
+
+  const handleSaveSettings = async () => {
+    if (!isBackendAvailable) {
+      toast({
+        title: 'Backend Not Available',
+        description: 'The OSC backend server is not running. Please start it first.',
+        variant: 'destructive',
+        duration: 5000,
+      });
+      return;
+    }
+
+    try {
+      const result = await updateOSCSettings(settings);
+      setConnectionStatus({ 
+        connected: result.connected,
+        lastChecked: Date.now() 
+      });
+      
+      toast({
+        title: 'OSC Settings Updated',
+        description: `Connection ${result.connected ? 'established' : 'attempted'} to ${settings.ip}:${settings.port}`,
+        duration: 2000,
+      });
+    } catch (error) {
+      console.error('Failed to update OSC settings:', error);
+      toast({
+        title: 'Failed to update OSC settings',
+        description: 'An error occurred while updating OSC settings',
+        variant: 'destructive',
+        duration: 3000,
+      });
+    }
   };
 
   if (!isOpen) {
@@ -74,6 +127,20 @@ const OSCSettings: React.FC = () => {
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
+        {isBackendAvailable === false && (
+          <div className="bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-md p-3 mb-4">
+            <div className="flex items-center gap-2">
+              <AlertCircle size={16} className="text-amber-600 dark:text-amber-400" />
+              <p className="text-sm font-medium text-amber-800 dark:text-amber-300">
+                Backend server not detected
+              </p>
+            </div>
+            <p className="text-xs mt-1 text-amber-700 dark:text-amber-400">
+              Please start the OSC backend server: <code>node backend/server.js</code>
+            </p>
+          </div>
+        )}
+      
         <div className="flex items-center gap-2 text-sm pb-1">
           <span>Connection status:</span>
           {connectionStatus.connected ? (
@@ -124,9 +191,8 @@ const OSCSettings: React.FC = () => {
             Cancel
           </Button>
           <Button 
-            onClick={() => {
-              handleSaveSettings();
-            }}
+            onClick={handleSaveSettings}
+            disabled={!isBackendAvailable}
           >
             Save & Connect
           </Button>
